@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: caster_moma_description
+    relative_path: urdf/caster_moma_xacro.xacro
+    xacro_args: ""
+  SRDF:
+    relative_path: config/caster_kinova_xacro.srdf
+  CONFIG:
+    author_name: Ye Tian
+    author_email: ye.tian@iquotient-robotics.com
+    generated_timestamp: 1571940331

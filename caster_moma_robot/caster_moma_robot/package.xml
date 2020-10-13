@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>caster_moma_robot</name>
+  <version>1.1.0</version>
+  <description>ROS package for Caster MOMA robot</description>
+
+  <maintainer email="ye.tian@iquotient-robotics.com">Ye Tian</maintainer>
+
+  <license>MIT</license>
+
+  <url type="website">https://github.com/CasterLab/caster_moma_robot</url>
+  <url type="repository">https://github.com/CasterLab/caster_moma_robot</url>
+  <url type="bugtracker">https://github.com/CasterLab/caster_moma_robot/issues</url>
+
+  <author email="ye.tian@iquotient-robotics.com">Ye Tian</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>caster_moma_bringup</exec_depend>
+  <exec_depend>caster_moma_description</exec_depend>
+  <exec_depend>caster_moma_viz</exec_depend>
+  <exec_depend>caster_moma_moveit_config</exec_depend>
+
+  <export>
+    <metapackage/>
+  </export>
+</package>

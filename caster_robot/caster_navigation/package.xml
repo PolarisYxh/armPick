@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>caster_navigation</name>
+  <version>2.1.0</version>
+  <description>The caster_navigation package</description>
+
+  <maintainer email="ye.tian@iquotient-robotics.com">Ye Tian</maintainer>
+
+  <license>MIT</license>
+
+  <url type="website">https://github.com/CasterLab/caster_robot</url>
+  <url type="repository">https://github.com/CasterLab/caster_robot</url>
+  <url type="bugtracker">https://github.com/CasterLab/caster_robot/issues</url>
+
+  <author email="ye.tian@iquotient-robotics.com">Ye Tian</author>
+
+  <build_depend>roslaunch</build_depend>
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>amcl</exec_depend>
+  <exec_depend>navfn</exec_depend>
+  <exec_depend>gmapping</exec_depend>
+  <exec_depend>move_base</exec_depend>
+  <exec_depend>map_server</exec_depend>
+  <exec_depend>dwa_local_planner</exec_depend>
+  <exec_depend>base_local_planner</exec_depend>
+
+  <depend>caster_base</depend>
+  <depend>caster_control</depend>
+  <depend>caster_description</depend>
+
+  <export>
+  </export>
+</package>

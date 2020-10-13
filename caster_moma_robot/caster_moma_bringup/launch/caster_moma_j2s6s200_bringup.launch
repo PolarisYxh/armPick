@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="log_type" default="screen"/>
+
+  <arg name="teleop" value="true" />
+
+  <!-- Robot description -->
+  <param name="robot_description" command="$(find xacro)/xacro $(find caster_moma_description)/urdf/caster_moma_j2s6s200_xacro.xacro" />
+
+  <!-- Robot base -->
+  <include file="$(find caster_base)/launch/include/base.launch.xml">
+    <arg name="log_type" value="$(arg log_type)"/>
+    <arg name="base_version" value="v2" />
+    <arg name="has_body" value="true" />
+    <arg name="body_version" value="v2" />
+  </include>
+
+  <group if="$(arg teleop)">
+    <include file="$(find caster_base)/launch/include/teleop.launch.xml" />
+  </group>
+
+  <!-- pan tilt driver -->
+  <include file="$(find pan_tilt_bringup)/launch/bringup.launch">
+    <arg name="log_type" value="$(arg log_type)"/>
+    <arg name="port_name" value="/dev/caster_head"/>
+  </include>
+
+  <!-- kinect -->
+  <include file="$(find kinect2_bridge)/launch/kinect2_bridge.launch">
+    <arg name="depth_method" value="opengl" />
+    <arg name="reg_method" value="cpu" />
+    <arg name="publish_tf" value="true" />
+  </include>
+
+  <!-- Kinova Jaco v2 -->
+  <node name="j2s6s200_driver" pkg="kinova_driver" type="kinova_arm_driver" output="$(arg log_type)" cwd="node" args="j2s6s200">
+    <rosparam file="$(find caster_moma_bringup)/config/kinova_arm.yaml" command="load" />
+    <param name="robot_name" value="j2s6s200" />   
+    <param name="robot_type" value="j2s6s200" />
+    <remap from="j2s6s200_driver/out/joint_state" to="joint_states"/>
+  </node>
+
+  <!-- Realsense -->
+  <include file="$(find realsense2_camera)/launch/includes/nodelet.launch.xml">
+    <arg name="tf_prefix"             value="camera"/>
+    <arg name="initial_reset"         value="false"/>
+    <arg name="enable_sync"           value="true"/>
+    <arg name="align_depth"           value="true"/>
+  </include>
+</launch>

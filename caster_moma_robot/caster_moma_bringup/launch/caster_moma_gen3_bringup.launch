@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="log_type" default="screen"/>
+
+  <arg name="teleop" value="true" />
+
+  <!-- Robot description -->
+  <param name="robot_description" command="$(find xacro)/xacro $(find caster_moma_description)/urdf/caster_moma_gen3_xacro.xacro" />
+
+  <!-- Robot base -->
+  <include file="$(find caster_base)/launch/include/base.launch.xml">
+    <arg name="log_type" value="$(arg log_type)"/>
+    <arg name="base_version" value="v2" />
+    <arg name="has_body" value="true" />
+    <arg name="body_version" value="v2" />
+  </include>
+
+  <group if="$(arg teleop)">
+    <include file="$(find caster_base)/launch/include/teleop.launch.xml" />
+  </group>
+
+  <!-- pan tilt driver -->
+  <include file="$(find pan_tilt_bringup)/launch/bringup.launch">
+    <arg name="log_type" value="$(arg log_type)"/>
+    <arg name="port_name" value="/dev/caster_head"/>
+  </include>
+
+  <!-- kinect -->
+  <include file="$(find kinect2_bridge)/launch/kinect2_bridge.launch">
+    <arg name="depth_method" value="opengl" />
+    <arg name="reg_method" value="cpu" />
+    <arg name="publish_tf" value="true" />
+  </include>
+
+  <!-- Start the kortex_driver node -->
+  <node name="gen3_driver" pkg="kortex_driver" type="kortex_arm_driver" output="screen">
+      <param name="ip_address" value="192.168.33.9" />
+      <param name="username" value="admin" />
+      <param name="password" value="admin" />
+      <param name="cyclic_data_publish_rate" value="100" />
+      <param name="api_rpc_timeout_ms" value="2000" />
+      <param name="api_session_inactivity_timeout_ms" value="35000" />
+      <param name="api_connection_inactivity_timeout_ms" value="20000" />
+      <param name="default_goal_time_tolerance" value="0.5" />
+      <param name="default_goal_tolerance" value="0.005" />
+      <param name="arm" value="gen3" />
+      <param name="gripper" value="robotiq_2f_85" />
+      <param name="dof" value="7" />
+      <param name="prefix" value="arm_" />
+      <param name="use_hard_limits" value="false" />
+      <rosparam command="load" file="$(find kortex_description)/arms/gen3/7dof/config/joint_limits.yaml" />
+      <rosparam command="load" file="$(find kortex_description)/grippers/robotiq_2f_85/config/joint_limits.yaml" />
+      <remap from="base_feedback/joint_state" to="joint_states" />
+  </node>
+
+  <!-- Gen3 camera -->
+  <include file="$(find kinova_vision)/launch/kinova_vision_rgbd.launch">
+    <arg name="device" value="192.168.33.9" />
+    <arm name="depth_registration" value="true" />
+  </include>
+
+<!--   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="rate" value="100" />
+    <rosparam param="source_list">[base_feedback/joint_state]</rosparam>
+    <param name="use_gui" value="false"/>
+  </node> -->
+</launch>

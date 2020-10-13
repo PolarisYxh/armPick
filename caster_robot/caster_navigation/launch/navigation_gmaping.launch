@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="log_type" default="screen"/>
+  <arg name="base_version" default="v2" />
+  
+  <!-- Arguments -->
+  <arg name="rviz" default="true"/>
+
+
+  <!-- AMCL -->
+  <include file="$(find caster_navigation)/launch/amcl.launch.xml" >
+    <arg name="log_type" value="$(arg log_type)"/>
+    <arg name="base_version" value="$(arg base_version)" />
+  </include>
+
+  <!-- move_base -->
+  <include file="$(find caster_navigation)/launch/move_base.launch.xml">
+    <arg name="log_type" value="$(arg log_type)"/>
+    <arg name="base_version" value="$(arg base_version)" />
+  </include>
+
+  <!-- rviz -->
+  <group if="$(arg rviz)"> 
+    <node pkg="rviz" type="rviz" name="rviz" required="true" args="-d $(find caster_viz)/viz/navigation.rviz" output="$(arg log_type)"/>
+  </group>
+</launch>

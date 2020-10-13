@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>caster_auto_charge</name>
+  <version>2.1.0</version>
+  <description>The caster_auto_charge package</description>
+
+  <maintainer email="ye.tian@iquotient-robotics.com">Ye Tian</maintainer>
+
+  <license>MIT</license>
+
+  <url type="website">https://github.com/CasterLab/caster_robot</url>
+  <url type="repository">https://github.com/CasterLab/caster_robot</url>
+  <url type="bugtracker">https://github.com/CasterLab/caster_robot/issues</url>
+
+  <author email="ye.tian@iquotient-robotics.com">Ye Tian</author>
+
+  <build_depend>roslaunch</build_depend>
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>actionlib</depend>
+  <depend>actionlib_msgs</depend>
+
+  <depend>sensor_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>move_base_msgs</depend>
+
+  <depend>python-numpy</depend>
+  <depend>python-sklearn</depend>
+
+  <depend>caster_base</depend>  
+  <depend>caster_navigation</depend>
+
+  <export>
+  </export>
+</package>

@@ -1,0 +1,67 @@
+<?xml version = "1.0"?>
+<robot name = "caster_body" xmlns:xacro = "http://www.ros.org/wiki/xacro">
+  <xacro:property name="M_PI" value="3.1415926535897931" />
+  <xacro:macro name="caster_body" params="parent *origin">
+    <joint name="caster_body_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="caster_body_link"/>
+    </joint>
+
+    <link name="caster_body_link">
+      <visual>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+            <mesh filename="package://caster_description/mesh/body_v1/caster_body_fixed.stl" />
+          </geometry>
+          <material name="">
+            <color rgba="0.3 0.3 0.3 1.0" />
+          </material>
+        </visual>
+    </link>
+
+    <link name="caster_body_part_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://caster_description/mesh/body_v1/caster_body_part.stl" />
+          <!-- <mesh filename="package://caster_description/mesh/body_v1/caster_body_part_up.stl" /> -->
+        </geometry>
+        <material name="">
+          <color rgba="0.3 0.3 0.3 1.0" />
+        </material>
+      </visual>
+    </link>
+
+    <joint name="caster_body_connected_joint" type="prismatic">
+      <child link="caster_body_part_link" />
+      <parent link="caster_body_link" />
+      <origin xyz="-0.0 0 0.0" rpy="0 0 0" />
+      <axis xyz="0 0 1" rpy="0 0 0"/>
+      <limit lower="0.0" upper="0.3765" effort="0.0" velocity="0.0"/>
+    </joint> 
+
+    <link name="caster_body_head_link" />
+    <joint name="caster_body_head_joint" type="fixed">
+      <child link="caster_body_head_link" />
+      <parent link="caster_body_part_link" />
+      <origin xyz="-0.110 0 0.687" rpy="0 0 0" />
+    </joint>
+
+    <!-- right -->
+    <link name="caster_body_arm_link" />
+    <joint name="caster_body_arm_joint" type="fixed">
+      <child link="caster_body_arm_link" />
+      <parent link="caster_body_part_link" />
+      <origin xyz="-0.003 0.065 0.174" rpy="0 0 0" />
+    </joint>
+
+    <!-- up -->
+<!--     <link name="caster_body_arm_link" />
+    <joint name="caster_body_arm_joint" type="fixed">
+      <child link="caster_body_arm_link" />
+      <parent link="caster_body_part_link" />
+      <origin xyz="-0.003 0.000 0.180" rpy="0 0 0" />
+    </joint> -->
+  </xacro:macro>
+</robot>

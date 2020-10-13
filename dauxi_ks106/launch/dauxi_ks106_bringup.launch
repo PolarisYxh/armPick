@@ -1,0 +1,14 @@
+<launch>
+  <node pkg="dauxi_ks106" type="dauxi_ks106_node" name="dauxi_ks106_node" output="screen">
+    <param name="port" type="string" value="/dev/caster_us"/>
+    <param name="baudrate" type="int" value="9600"/>
+    <param name="frequency" type="int" value="10"/>
+    <param name="topic" type="string" value="us"/>
+    <param name="min_range" type="double" value="0.20" />
+    <param name="max_range" type="double" value="1.50" />
+    <param name="us1_id" type="string" value="ks106_us1"/>
+    <param name="us2_id" type="string" value="ks106_us2"/>
+    <param name="us3_id" type="string" value="ks106_us3"/>
+    <param name="us4_id" type="string" value="ks106_us4"/>
+  </node>
+</launch>

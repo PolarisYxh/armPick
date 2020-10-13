@@ -1,0 +1,80 @@
+- git:
+    local-name: aruco_ros
+    uri: https://github.com/pal-robotics/aruco_ros.git
+    version: kinetic-devel
+- git:
+    local-name: dauxi_ks106
+    uri: https://github.com/I-Quotient-Robotics/dauxi_ks106.git
+    version: master
+- git:
+    local-name: hongfu_bms
+    uri: https://github.com/I-Quotient-Robotics/hongfu_bms.git
+    version: master
+- git:
+    local-name: jy901_driver
+    uri: https://github.com/I-Quotient-Robotics/jy901_driver.git
+    version: master
+- git:
+    local-name: caster_app
+    uri: https://github.com/CasterLab/caster_app.git
+    version: master
+- git:
+    local-name: caster_msgs
+    uri: https://github.com/CasterLab/caster_msgs.git
+    version: master
+- git:
+    local-name: caster_robot
+    uri: https://github.com/CasterLab/caster_robot.git
+    version: master
+- git:
+    local-name: caster_simulator
+    uri: https://github.com/CasterLab/caster_simulator.git
+    version: master
+- git:
+    local-name: caster_desktop
+    uri: https://github.com/CasterLab/caster_desktop.git
+    version: master
+- git:
+    local-name: caster_description
+    uri: https://github.com/CasterLab/caster_description.git
+    version: master
+- git:
+    local-name: iai_kinect2
+    uri: https://github.com/code-iai/iai_kinect2.git
+    version: master
+- git:
+    local-name: iqr_pan_tilt
+    uri: https://github.com/I-Quotient-Robotics/iqr_pan_tilt.git
+    version: dev
+- git:
+    local-name: kinova-ros
+    uri: https://github.com/Kinovarobotics/kinova-ros.git
+    version: master
+- git:
+    local-name: ros_kortex
+    uri: https://github.com/Kinovarobotics/ros_kortex.git
+    version: kinetic-devel
+- git:
+    local-name: ros_kortex_vision
+    uri: https://github.com/Kinovarobotics/ros_kortex_vision.git
+    version: master
+- git:
+    local-name: realsense-ros
+    uri: https://github.com/IntelRealSense/realsense-ros.git
+    version: development
+- git:
+    local-name: caster_moma_robot
+    uri: https://github.com/CasterLab/caster_moma_robot.git
+    version: master
+- git:
+    local-name: caster_moma_description
+    uri: https://github.com/CasterLab/caster_moma_description.git
+    version: master
+- git:
+    local-name: caster_moma_viz
+    uri: https://github.com/CasterLab/caster_moma_viz.git
+    version: master
+- git:
+    local-name: caster_moma_app
+    uri: https://github.com/CasterLab/caster_moma_app.git
+    version: master

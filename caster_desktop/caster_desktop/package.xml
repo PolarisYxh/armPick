@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>caster_desktop</name>
+  <version>2.1.0</version>
+  <description>ROS pakcage for Caster remote control</description>
+
+  <maintainer email="ye.tian@iquotient-robotics.com">Ye Tian</maintainer>
+
+  <license>MIT</license>
+
+  <url type="website">https://github.com/CasterLab/caster_desktop</url>
+  <url type="repository">https://github.com/CasterLab/caster_desktop</url>
+  <url type="bugtracker">https://github.com/CasterLab/caster_desktop/issues</url>
+
+  <author email="ye.tian@iquotient-robotics.com">Ye Tian</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>hongfu_bms_msg</exec_depend>
+
+  <exec_depend>caster_viz</exec_depend>
+  <exec_depend>caster_teleop</exec_depend>
+
+  <exec_depend>caster_msgs</exec_depend>
+  <exec_depend>caster_description</exec_depend>
+
+  <export>
+    <metapackage/>
+  </export>
+</package>

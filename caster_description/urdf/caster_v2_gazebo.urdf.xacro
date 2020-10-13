@@ -1,0 +1,243 @@
+<?xml version="1.0"?>
+<robot name="caster_robot" xmlns:xacro="http://www.ros.org/wiki/xacro" description="iqr caster robot">
+  <xacro:property name="M_PI" value="3.1415926535897931" />
+  <xacro:property name="deg_to_rad" value="0.017453293" />
+  <!-- <xacro:include filename = "$(find caster_description)/urdf/common_properties.xacro" /> -->
+  <xacro:include filename = "$(find caster_description)/urdf/iqr_caster.gazebo.xacro" />
+
+  <!-- support_wheel unit -->
+  <xacro:macro name="support_wheel" params="parent location *origin">
+    <link name="support_wheel_${location}_body_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://caster_description/mesh/v2/support_wheel_body.stl" />
+        </geometry>
+        <material name="">
+          <color rgba="0.3 0.3 0.3 1.0" />
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://caster_description/mesh/v2/support_wheel_body.stl" />
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="-0.01 0 -0.02" rpy="${24 * deg_to_rad} 0 ${M_PI/2}"/>
+        <mass value="0.25" />
+        <inertia ixx="2.4166657e-4" ixy="0.0" ixz="-0.0" 
+                 iyy="2.4166657e-4" iyz="0.0" 
+                 izz="6.66664e-5" />
+      </inertial>
+    </link>
+
+    <link name="support_wheel_${location}_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://caster_description/mesh/v2/support_wheel_roller.stl" />
+        </geometry>
+        <material name="">
+          <color rgba="0.3 0.3 0.3 1.0" />
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="${M_PI/2} 0 0" />
+        <geometry>
+          <cylinder length="0.01" radius="0.0325" />
+        </geometry>
+      </collision>
+     
+      <inertial>
+        <origin xyz="0 0 0" rpy="${M_PI/2} 0 0"/>
+        <mass value="0.27" />
+        <inertia ixx="7.35468456e-5" ixy="0.0" ixz="0.0" 
+                 iyy="7.35468456e-5" iyz="0.0" 
+                 izz="1.4259375e-4" />
+      </inertial>
+    </link>
+
+    <joint name="support_wheel_${location}_body_joint" type="continuous">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}" />
+      <child link="support_wheel_${location}_body_link" />
+      <axis xyz="0 0 1" />
+      <dynamics damping="0.01" friction="0.0"/>
+    </joint>
+ 
+    <joint name="support_wheel_${location}_joint" type="continuous">
+      <origin xyz="-0.0292 0 -0.0615" rpy="0 0 0" />
+      <parent link="support_wheel_${location}_body_link" />
+      <child link="support_wheel_${location}_link" />
+      <axis xyz="0 1 0" />
+    </joint>
+  </xacro:macro>
+
+  <!-- drive_wheel unit -->
+  <xacro:macro name="drive_wheel" params="parent location invert *origin">
+    <link name="drive_wheel_${location}_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 ${invert*M_PI}" />
+        <geometry>
+          <mesh filename="package://caster_description/mesh/v2/drive_wheel_${location}.stl" />
+        </geometry>
+        <material name="">
+          <color rgba="0.30 0.30 0.30 1" />
+        </material>
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0" rpy="${M_PI/2} 0 0" />
+        <geometry>
+          <cylinder length="0.035" radius="0.0625" />
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0 0 0" rpy="${M_PI/2} 0 0"/>
+        <mass value="0.92" />
+        <inertia ixx="0.0014" ixy="0.0" ixz="-0.0" 
+                 iyy="0.0014" iyz="0.0" 
+                 izz="0.0026" />
+      </inertial>
+    </link>
+
+    <joint name="drive_wheel_${location}_joint" type="continuous">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}" />
+      <child link="drive_wheel_${location}_link" />
+      <axis xyz="0 1 0" rpy="0 0 0"/>
+    </joint>
+
+    <transmission name="tran_${location}">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="drive_wheel_${location}_joint">
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="motor_${location}">
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+  </xacro:macro>
+
+  <!-- ULT unit-->
+  <xacro:macro name="ultrasonic" params="parent location *origin">
+    <link name="ultrasonic_${location}_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 ${M_PI/2} 0" />
+        <geometry>
+          <cylinder length="0.01" radius="0.01" />
+        </geometry>
+        <material name="">
+          <color rgba="0.3 0.3 0.3 1.0" />
+        </material>
+      </visual>
+    </link>
+
+    <joint name="ultrasonic_${location}_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}" />
+      <child link="ultrasonic_${location}_link" />
+    </joint>
+  </xacro:macro>
+
+  <!-- base footprint -->
+  <link name="base_footprint">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </link>
+  <!-- base link -->
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://caster_description/mesh/v2/caster_base.stl" />
+      </geometry>
+      <material name="">
+        <color rgba="0.98 1.0 0.94 1.0" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.265" rpy="0 0 0" />
+      <geometry>
+         <cylinder length="0.005" radius="0.275"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-0.02 0 0.11" />
+      <mass value="45.16" />
+      <inertia ixx="0.94" ixy="0.0" ixz="0.0"
+           iyy="0.99" iyz="0.0"
+           izz="1.35" />
+    </inertial>
+  </link>
+
+  <joint name="base_link_joint" type="fixed">
+    <origin xyz="0 0 0.034" rpy="0 0 0" />
+    <parent link="base_footprint" />
+    <child link="base_link" />
+  </joint>
+
+  <!-- IMU link -->
+  <link name="imu_link" />
+
+  <joint name="imu_link_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="imu_link" />
+  </joint>
+
+  <!-- Laser link -->
+  <link name="laser_link">
+  </link>
+  <joint name="laser_link_joint" type="fixed">
+    <origin xyz="0.24 0 0.1334" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="laser_link" />
+  </joint>
+
+  <!-- Laser link 2 (rplidar) -->
+  <link name="laser_link2" >
+  </link>
+  <joint name="laser_link_joint2" type="fixed">
+    <origin xyz="0 0 0.2398" rpy="0 0 ${M_PI}" />
+    <parent link="base_link" />
+    <child link="laser_link2" />
+  </joint>
+
+  <!-- Drive wheel link -->
+  <xacro:drive_wheel parent="base_link" invert="0" location="left">
+    <origin xyz="0 0.236 0.0285" rpy="0 0 0" />
+  </xacro:drive_wheel>
+  <xacro:drive_wheel parent="base_link" invert="1" location="right">
+    <origin xyz="0 -0.236 0.0285" rpy="0 0 0" />
+  </xacro:drive_wheel>
+
+  <!-- Support wheel link -->
+  <xacro:support_wheel parent="base_link" location="front_left">
+    <origin xyz="0.19 0.16 0.06" rpy="0 0 0" />
+  </xacro:support_wheel>
+  <xacro:support_wheel parent="base_link" location="front_right">
+    <origin xyz="0.19 -0.16 0.06" rpy="0 0 0" />
+  </xacro:support_wheel>
+  <xacro:support_wheel parent="base_link" location="rear_left">
+    <origin xyz="-0.19 0.16 0.06" rpy="0 0 0" />
+  </xacro:support_wheel>
+  <xacro:support_wheel parent="base_link" location="rear_right">
+    <origin xyz="-0.19 -0.16 0.06" rpy="0 0 0" />
+  </xacro:support_wheel>
+
+  <!-- Ultrasonic link-->
+  <xacro:ultrasonic parent="base_link" location="front_left">
+    <origin xyz="0.26795 0.06186 0.022" rpy="0 0 0.2268" />
+  </xacro:ultrasonic>
+  <xacro:ultrasonic parent="base_link" location="front_right">
+    <origin xyz="0.26795 -0.06186 0.022" rpy="0 0 -0.2268" />
+  </xacro:ultrasonic>
+  <xacro:ultrasonic parent="base_link" location="rear_left">
+    <origin xyz="-0.26683 0.06653 0.2" rpy="0 0 2.8972" />
+  </xacro:ultrasonic>
+  <xacro:ultrasonic parent="base_link" location="rear_right">
+    <origin xyz="-0.26683 -0.06653 0.2" rpy="0 0 -2.8972" />
+  </xacro:ultrasonic>
+</robot>

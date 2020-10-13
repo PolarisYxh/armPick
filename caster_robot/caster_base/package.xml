@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>caster_base</name>
+  <version>2.1.0</version>
+  <description>The caster_base package</description>
+
+  <maintainer email="ye.tian@iquotient-robotics.com">Ye Tian</maintainer>
+
+  <license>MIT</license>
+
+  <url type="website">https://github.com/CasterLab/caster_robot</url>
+  <url type="repository">https://github.com/CasterLab/caster_robot</url>
+  <url type="bugtracker">https://github.com/CasterLab/caster_robot/issues</url>
+
+  <author email="ye.tian@iquotient-robotics.com">Ye Tian</author>
+
+  <build_depend>roslaunch</build_depend>
+  <buildtool_depend>catkin</buildtool_depend>
+  
+  <depend>roscpp</depend>
+  <depend>sensor_msgs</depend>
+  <depend>robot_pose_ekf</depend>
+  <depend>socketcan_bridge</depend>
+  <depend>yocs_cmd_vel_mux</depend>
+  
+  <depend>controller_manager</depend>
+  <depend>hardware_interface</depend>
+  <depend>diff_drive_controller</depend>
+
+  <depend>urg_node</depend>
+
+  <depend>rplidar_ros</depend>
+  <depend>dauxi_ks106</depend>
+  <depend>jy901_driver</depend>
+  <depend>hongfu_bms_msg</depend>
+  <depend>hongfu_bms_status</depend>
+
+  <depend>joy</depend>
+  <depend>joy_teleop</depend>
+
+  <depend>caster_msgs</depend>
+  <depend>caster_control</depend>
+  <depend>caster_description</depend>
+
+  <export>
+  </export>
+</package>

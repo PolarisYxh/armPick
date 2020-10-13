@@ -1,0 +1,9 @@
+# Define the goal
+string items  #
+---
+# Define the result
+int16 finished_step
+---
+# Define a feedback message
+int16 step_index
+string step_description

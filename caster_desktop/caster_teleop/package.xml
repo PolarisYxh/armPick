@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>caster_teleop</name>
+  <version>2.1.0</version>
+  <description>ROS pakcage for Caster joystick control</description>
+
+  <maintainer email="ye.tian@iquotient-robotics.com">Ye Tian</maintainer>
+
+  <license>MIT</license>
+
+  <url type="website">https://github.com/CasterLab/caster_desktop</url>
+  <url type="repository">https://github.com/CasterLab/caster_desktop</url>
+  <url type="bugtracker">https://github.com/CasterLab/caster_desktop/issues</url>
+
+  <author email="ye.tian@iquotient-robotics.com">Ye Tian</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>joy</exec_depend>
+  <exec_depend>joy_teleop</exec_depend>
+
+  <export>
+  </export>
+</package>

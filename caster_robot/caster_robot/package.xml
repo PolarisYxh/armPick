@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>caster_robot</name>
+  <version>2.1.0</version>
+  <description>The caster_robot package</description>
+
+  <maintainer email="ye.tian@iquotient-robotics.com">Ye Tian</maintainer>
+
+  <license>MIT</license>
+
+  <url type="website">https://github.com/CasterLab/caster_robot</url>
+  <url type="repository">https://github.com/CasterLab/caster_robot</url>
+  <url type="bugtracker">https://github.com/CasterLab/caster_robot/issues</url>
+
+  <author email="ye.tian@iquotient-robotics.com">Ye Tian</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>caster_auto_charge</exec_depend>
+  <exec_depend>caster_base</exec_depend>
+  <exec_depend>caster_control</exec_depend>
+  <exec_depend>caster_navigation</exec_depend>
+
+  <exec_depend>caster_msgs</exec_depend>
+  <exec_depend>caster_description</exec_depend>
+
+  <export>
+    <metapackage/>
+  </export>
+</package>
